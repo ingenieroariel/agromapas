@@ -41,7 +41,7 @@ class Vivienda(models.Model):
         ordering = ['radicacion']        
 
     def __unicode__(self):
-        return '%s, %s (%d)' % (self.localidad, self.municipio, self.vigencia)
+        return '%s: %s' % (self.radicacion, self.localidad)
 
 
 #class Municipio(models.Model):
