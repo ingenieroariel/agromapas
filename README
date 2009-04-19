@@ -1,0 +1,17 @@
+
+To use:
+
+1. Create a virtual environment, activate it and install pip
+virtualenv agromapas
+source bin/activate
+easy_install pip
+
+2. Create an src dir and checkout the code
+mkdir src; cd src
+git clone git://github.com/ingenieroariel/agromapas.git
+cd agromapas
+pip install -r requirements/external.txt
+
+That would install django, and all the other dependencies inside your virtualenv
+
+3. Create a local_settings.py file with your database name, user and password

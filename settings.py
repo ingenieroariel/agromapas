@@ -80,7 +80,7 @@ STATIC_GENERATOR_URLS = (
 # Valid for demo.puenti.com
 GMAPS_API_KEY="ABQIAAAAc6uYIZMXcGKnQLkkUR-LfRSivSAHp7OkUqTdT2kdzGRzAdOc3RQIJHtRrL6YA5OQKFrcS1StaBkITg"
 
-ROOT_URLCONF = 'agro.urls'
+ROOT_URLCONF = 'agromapas.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
