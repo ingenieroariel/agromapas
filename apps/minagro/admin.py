@@ -26,7 +26,4 @@ admin.site.register(Departamento, DepartamentoAdmin)
 admin.site.register([Poblacion, Localidad, ViviendaCode])
 
 databrowse.site.register(Vivienda)
-#databrowse.site.register(Municipio)
-databrowse.site.register(Departamento)
-#databrowse.site.register(Poblacion)
 

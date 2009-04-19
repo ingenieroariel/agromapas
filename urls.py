@@ -37,7 +37,7 @@ urlpatterns = patterns('',
     # Uncomment this for admin docs:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # Uncomment this for admin:
-    (r'^explorar/(.*)', login_required(databrowse.site.root)),
+    (r'^iphone/(.*)', login_required(databrowse.site.root)),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),
     ('^admin/(.*)', admin.site.root),
 )
