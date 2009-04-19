@@ -28,7 +28,7 @@ class Vivienda(models.Model):
     fecha2 = models.DateField()
     desembolso3 = models.TextField() 
     fecha3 = models.DateField()
-    estado = models.CharField(max_length=100, choices=ESTADO_CHOICES) 
+    estado = models.CharField(max_length=100) 
     avance = models.DecimalField(max_digits=3, decimal_places=2)
     recursos = models.TextField()
     poblacion = models.CharField(max_length=11)
