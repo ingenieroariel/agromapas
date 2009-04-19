@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = (
 
 STATIC_GENERATOR_URLS = (
 #    r'^/$',
-    r'^/(proyectos.kmz)',
+#    r'^/(proyectos.kmz)',
 )
 # Valid for demo.puenti.com
 GMAPS_API_KEY="ABQIAAAAc6uYIZMXcGKnQLkkUR-LfRSivSAHp7OkUqTdT2kdzGRzAdOc3RQIJHtRrL6YA5OQKFrcS1StaBkITg"
