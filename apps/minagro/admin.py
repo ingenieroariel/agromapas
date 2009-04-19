@@ -3,7 +3,7 @@ from django.contrib import databrowse
 from minagro.models import *
 
 class ViviendaAdmin(admin.ModelAdmin):
-    list_display = ('vigencia', 'acta', 'radicacion', 'departamento',
+    list_display = ('radicacion', 'vigencia', 'acta',  'departamento',
             'municipio', 'localidad', 'recursos', 'tipo_solucion', 'hogares', 'avance', 'estado', 'valor_total', 'subsidio', )
     ordering = ('radicacion',)
     list_filter    = ('vigencia', 'departamento', 'tipo_solucion', 'estado')
