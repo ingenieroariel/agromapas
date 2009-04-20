@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<kml xmlns="http://earth.google.com/kml/2.2"> 
+
+	{% load myfilters %}
+	{% load humanize %}
+	<Document>
+	<name>proyecto.kml</name>
+	<Style id="sn_grn-blank">
+		<IconStyle>
+			
+			<scale>{{object.valor_total|iconize}}</scale>
+			<Icon>
+			<href>http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png</href>
+		</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text>$[description]</text>
+		</BalloonStyle>
+	</Style>
+	
+	<Placemark>
+		<name>{{object.radicacion}}</name>
+		<Snippet maxLines="2"></Snippet>
+	<description><![CDATA[
+	<!-- BalloonStyle background color:ffffffff-->
+	<!-- Icon 
+	URL:http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png --> <table 
+width="500" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td colspan="2" align="right" bgcolor="#669966">
+<h2><font color="#FFFFFF">Ministerio de 
+Agricultura</font>&nbsp;</h2>
+</td>
+</tr>
+<tr>
+<td align="left">
+<img src="http://ingenieroariel.googlepages.com/casa.jpg" 
+alt="picture" width="150" height="346" align="left" /> </td>
+<td rowspan="2">
+<table width="0" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="right">
+<font color="#666633">Viviendas de interes social</font>
+</td>
+</tr>
+<tr>
+<td width="99%">&nbsp;</td>
+</tr>
+<tr>
+<td width="99%">
+<h2><font color="#009999">{{object.localidad|lower|capfirst}}<br/>
+{{object.municipio|lower|capfirst}}, {{object.departamento|lower|capfirst}}</font> </h2>
+<h3>Radicacion {{object.radicacion}}, Acta {{object.acta}}, Vigencia {{object.vigencia}}</h3>
+<h1>${{object.valor_total|intcomma}}</h1>
+<div>
+<img src="http://yarntomato.com/percentbarmaker/button.php?barPosition={{object.avance_percent}}&leftFill=%2366FF66" alt="picture" width="102" height="15" align="center" />    de ejecuci&oacute;n
+</div>
+<div>
+<h3>Desembolsos</h3>
+	<img border="0" 
+src="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=280x50&chl=NoSubsidiado%7CDesembolso1%7CDesembolso2%7CDesembolso3" 
+alt="desemb" /> 
+</div>
+<div>
+<object width="250" height="100">
+<param name="movie" 
+value="http://ingenieroariel.googlepages.com/desembolsos.swf"></param>
+<param name="wmode" value="transparent"></param>
+<embed src="http://ingenieroariel.googlepages.com/desembolsos.swf"
+type="application/x-shockwave-flash" wmode="transparent"
+width="250" height="100"></embed> </object> 
+</div>
+
+<p align="justify"> El primer desemboloso fue de ${{object.primer_desembolso|intcomma}} en 
+{{object.primera_fecha}}<br/> El segundo desembolso fue de 
+${{object.segundo_desembolso|intcomma}} en {{object.segunda_fecha}}<br/> 
+El tercer desembolso fue de ${{object.tercer_desembolso|intcomma}} en 
+{{object.tercera_fecha}}<br/> Hasta la fecha se han desembolsado 
+${{object.desembolsado|intcomma}} y quedan ${{object.saldo|intcomma}} 
+pendientes por desembolsar. </p>
+</td>
+</tr>
+<tr>
+<td width="99%" align="center">&nbsp;</td>
+</tr>
+<tr>
+<td width="99%" align="center">
+<p>
+  <a 
+href="http://demo.puenti.com/explorar/minagro/proyecto/objects/{{object.id}}">Ver 
+mas</a> |
+  <a 
+href="http://demo.puenti.com/admin/minagro/proyecto/{{object.id}}">Editar</a> 
+|           
+</p>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td width="1%" align="center" valign="top"><br />
+<br />
+<img src="http://ingenieroariel.googlepages.com/logo.png" 
+alt="picture" />
+<br /><br />
+<font color="#999999">Puenti Ltda / copyright 2008</font></td>
+</tr> </table>]]></description>
+<styleUrl>#sn_grn-blank</styleUrl>
+  {% if object.geometry %}
+		<Point>
+			
+			<coordinates>{{object.geometry.x}}, {{object.geometry.y}},{{object.valor_total|normalizar_valor}} </coordinates>
+			<extrude>1</extrude>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</Point>
+  {% endif %}		
+	</Placemark> </Document>
+</kml>

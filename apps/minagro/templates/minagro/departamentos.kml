@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<kml xmlns="http://earth.google.com/kml/2.2"> 
+
+	{% load myfilters %}
+	{% load humanize %}
+	<Document id="root">
+		<name><![CDATA[Departamentos]]></name>
+
+	<Folder>
+			<name>Departamentos</name>
+			{% for object in object_list %}
+			<Placemark id="departamento_{{object.nombre}}">
+				<name>{{object.nombre}}</name>
+				{% autoescape off %}
+				{{object.geometry.kml}}
+				{% endautoescape %}
+			</Placemark>	
+			{% endfor %}
+   </Folder>
+</Document>
+</kml>

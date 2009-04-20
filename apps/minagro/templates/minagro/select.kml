@@ -1,0 +1,36 @@
+<NetworkLinkControl> 
+  <Update> 
+    <targetHref>http://demo.puenti.com/proyectos.kmz</targetHref> 
+{% for id, visible in objects.items %}
+	<Change>
+ <Style targetId="style_{{model}}_{{id}}">
+		<IconStyle>
+		<scale>{{visible}}</scale>
+		</IconStyle>
+ </Style>
+	</Change>
+    {% endfor %}
+<Delete>
+<Folder targetId="selected">
+</Folder>
+</Delete>
+<Create>
+        <Document targetId="root">
+                <Folder id="selected">
+                        <name>Seleccionados {{field}}={{value}} en {{model}}</name>
+                        <open>1</open>
+                        <Snippet maxLines="0">0</Snippet>
+                                {% for object in objects_visible %}
+                                <Placemark>
+                                <name>{{object.localidad}}</name>
+                                {% autoescape off %}
+                                        {{object.geoemtry.kml}}
+                                {% endautoescape %}
+                                </Placemark>
+                                {% endfor %}
+                </Folder>
+        </Document>
+</Create>
+
+</Update>
+</NetworkLinkControl> 

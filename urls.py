@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 
 info_dict = {
-#        'queryset': Proyecto.objects.all().exclude(geometry__exact=None).order_by('departamento', 'municipio').select_related()[0:2],
-        'queryset': Vivienda.objects.all().order_by('departamento', 'municipio').select_related(),
+        'queryset': Vivienda.objects.all().exclude(geometry__exact=None).order_by('departamento', 'municipio').select_related()[0:2],
+#        'queryset': Vivienda.objects.all().order_by('departamento', 'municipio').select_related(),
     }
 departamentos_dict = {
         'queryset': Departamento.objects.all().order_by('nombre'),
@@ -29,10 +29,12 @@ urlpatterns = patterns('',
     #Debug view 
     (r'^descriptionxml/(?P<object_id>\d+)$', 'django.views.generic.list_detail.object_detail', dict(info_dict, template_name='description.kml', mimetype="text/xml") ),
 
-    (r'^proyectos.kml$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='proyectos.kml')),
-    (r'^departamentos.kmz$', 'django.views.generic.list_detail.object_list', dict(departamentos_dict, template_name='departamentos.kml')),
+    (r'^proyectos.(<?Pformat>kml|kmz|xml|txt)$', 'django.views.generic.list_detail.object_list',
+        dict(info_dict, template_name='minagro/proyectos.kml')),
+    (r'^departamentos.kmz$',
+        'django.views.generic.list_detail.object_list',
+        dict(departamentos_dict, template_name='minagro/departamentos.kml')),
 
-    (r'^proyectos.xml$', 'django.views.generic.list_detail.object_list', dict(info_dict, template_name='proyectos.kml', mimetype="text/xml")),
 
     # Uncomment this for admin docs:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

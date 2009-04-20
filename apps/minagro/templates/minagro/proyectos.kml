@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<kml xmlns="http://earth.google.com/kml/2.2"> 
+
+	{% load myfilters %}
+	{% load humanize %}
+	<Document id="root">
+		<name><![CDATA[Viviendas de interes social]]></name>
+		{% for object in object_list %}		
+<Style id="style_proyecto_{{object.id}}">
+                <IconStyle>
+                        <scale>{{object.valor_total|iconize}}</scale>
+                        <Icon>                       
+<href>http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png</href>
+                </Icon>
+                </IconStyle>
+                <BalloonStyle>
+                        <text>$[description]</text>
+		</BalloonStyle>
+		<LabelStyle>
+			<scale>0</scale>
+			<color>00000000</color>
+		</LabelStyle>
+  </Style>
+  <Style id="style_proyecto_{{object.id}}_hl">
+	  <IconStyle>         
+	       	  <scale>{{object.valor_total|iconize}}</scale>
+                        <Icon>                       
+<href>http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png</href>
+                </Icon>
+    </IconStyle>
+           <BalloonStyle>
+		<text>$[description]</text>
+	   </BalloonStyle>
+    <LabelStyle>
+      <scale>1.1</scale>
+    </LabelStyle>
+  </Style>
+  <StyleMap id="stylemap_proyecto_{{object.id}}">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#style_proyecto_{{object.id}}</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#style_proyecto_{{object.id}}_hl</styleUrl>
+    </Pair>
+  </StyleMap>
+  {% endfor %}
+	<Folder>
+		<name>Proyectos</name>
+		{% regroup object_list by departamento  as departamento_list %}
+		{% for departamento_dict in departamento_list %}
+		<Folder>
+			<name>{{departamento_dict.grouper.nombre|lower|capfirst}}</name>
+			{% with departamento_dict.list|first as first_object %}
+		<description><![CDATA[
+	<!-- BalloonStyle background color:ffffffff-->
+	<!-- Icon 
+	URL:http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png --> <table 
+width="802" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="right">
+	<p><embed src="http://www.minagricultura.gov.co/swf/top_bann.swf" quality="high" bgcolor="#FFFFFF" width="802" height="90" name="table" align="top" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" id="table"/>       </p>
+</td>
+</tr>
+<tr>
+	<table width="0" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td align="right">
+				<font color="#666633">Viviendas de interes social</font>
+			</td>
+		</tr>
+		<tr>
+			<td width="99%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="99%">
+			<h1>Departamento {{first_object.departamento.nombre|lower|capfirst}}</h1>
+			<h2>Creados <a href="http://demo.puenti.com/tematico/departamento/hogares.kmz">{{first_object.departamento.hogares}}</a> hogares en  <a href="http://demo.puenti.com/tematico/departamento/cantidad.kmz">{{first_object.departamento.cantidad}}</a> proyectos con  <a href="http://demo.puenti.com/tematico/departamento/valor_total.kmz">${{first_object.departamento.valor_total|intcomma}}</a> invertidos.</h2>
+			<table border="1">
+				<tr><th>Municipio</th><th>Localidad</th><th>Valor</th><th>Estado</th><th>Vigencia</th><th>Acta</th><th>Radicacion</th><th>Bolsa de Recursos</th></tr>
+					{% for object in departamento_dict.list %}
+					<tr>
+						<td>{{object.municipio}}</td><td><a href="#proyecto_{{object.id}};balloonFlyto">{{object.localidad}}</a></td><td>${{object.valor_total|intcomma}}</td><td>{{object.estado}}</td><td>{{object.vigencia}}</td><td>{{object.acta}}</td><td>{{object.radicacion}}</td><td>{{object.bolsa_recursos}}</td>
+					</tr>
+				{% endfor %}	
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td width="99%" align="center">&nbsp;</td>
+		</tr>
+		<tr>
+		<td width="99%" align="center">
+			<p>	
+			<a href="http://demo.puenti.com/explorar/minagro/departamento/objects/{{first_object.departamento.nombre|urlencode}}">Ver mas</a> |
+			  <a href="http://demo.puenti.com/admin/minagro/departamento/{{first_object.departamento.nombre|urlencode}}">Editar</a>  
+			</p>	
+		</td>
+		</tr>
+	</table>
+</tr>
+<tr>
+<td width="1%" align="center" valign="top"><br />
+<br /><br />
+<font color="#999999">copyright 2008</font>
+
+</td>
+</tr>
+ </table>]]>		{{first_object.departamento.cantidad}}
+				</description>
+
+			<Placemark id="departamento_{{first_object.departamento.id}}">
+				<name>{{first_object.departamento.nombre}} ({{departamento_dict.list|length}})</name>
+				<description><![CDATA[
+	<!-- BalloonStyle background color:ffffffff-->
+	<!-- Icon 
+	URL:http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png --> <table 
+width="802" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="right">
+	<p><embed src="http://www.minagricultura.gov.co/swf/top_bann.swf" quality="high" bgcolor="#FFFFFF" width="802" height="90" name="table" align="top" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" id="table"/>       </p>
+</td>
+</tr>
+<tr>
+	<table width="0" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td align="right">
+				<font color="#666633">Viviendas de interes social</font>
+			</td>
+		</tr>
+		<tr>
+			<td width="99%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="99%">
+			<h1>Departamento {{first_object.departamento.nombre|lower|capfirst}}</h1>
+			<h2>Creados <a href="http://demo.puenti.com/tematico/departamento/hogares.kmz">{{first_object.departamento.hogares}}</a> hogares en  <a href="http://demo.puenti.com/tematico/departamento/cantidad.kmz">{{first_object.departamento.cantidad}}</a> proyectos con  <a href="http://demo.puenti.com/tematico/departamento/valor_total.kmz">${{first_object.departamento.valor_total|intcomma}}</a> invertidos.</h2>
+			<table border="1">
+				<tr><th>Municipio</th><th>Localidad</th><th>Valor</th><th>Estado</th><th>Vigencia</th><th>Acta</th><th>Radicacion</th><th>Bolsa de Recursos</th></tr>
+					{% for object in departamento_dict.list %}
+					<tr>
+						<td>{{object.municipio}}</td><td><a href="#proyecto_{{object.id}};balloonFlyto">{{object.localidad}}</a></td><td>${{object.valor_total|intcomma}}</td><td>{{object.estado}}</td><td>{{object.vigencia}}</td><td>{{object.acta}}</td><td>{{object.radicacion}}</td><td>{{object.bolsa_recursos}}</td>
+					</tr>
+				{% endfor %}	
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td width="99%" align="center">&nbsp;</td>
+		</tr>
+		<tr>
+		<td width="99%" align="center">
+			<p>	
+			<a href="http://demo.puenti.com/explorar/minagro/departamento/objects/{{first_object.departamento.nombre|urlencode}}">Ver mas</a> |
+			  <a href="http://demo.puenti.com/admin/minagro/departamento/{{first_object.departamento.nombre|urlencode}}">Editar</a>  
+			</p>	
+		</td>
+		</tr>
+	</table>
+</tr>
+<tr>
+<td width="1%" align="center" valign="top"><br />
+<br /><br />
+<font color="#999999">copyright 2008</font>
+
+</td>
+</tr>
+ </table>]]>		{{first_object.departamento.cantidad}}
+				</description>
+				{% autoescape off %}
+				{{first_object.departamento|transparent}}
+				{% endautoescape %}
+				<Style id="style_departamento_{{first_object.departamento.id}}">
+				<PolyStyle>
+					<color>{{departamento_dict.list|length|departamento_color}}</color>      
+					<colorMode>normal</colorMode>     
+					<fill>1</fill>                 
+				        <outline>1</outline>        
+				</PolyStyle>
+				<BalloonStyle>
+					<text>$[description]</text>
+				</BalloonStyle>
+			 	</Style>
+				{{first_object.departamento.geometry|region_polygon}}
+			</Placemark>	
+			{% endwith %}
+			{% regroup departamento_dict.list by municipio as municipio_list %}	
+			{% for municipio in municipio_list %}
+		<Folder>
+			<name><![CDATA[{{municipio.grouper|lower|capfirst}}]]></name>
+				{% for object in municipio.list %}
+		<Placemark id="proyecto_{{object.id}}">
+			<name><![CDATA[{{object.localidad}}]]></name>
+		<Snippet maxLines="0"></Snippet>
+	<description><![CDATA[
+	<!-- BalloonStyle background color:ffffffff-->
+	<!-- Icon 
+	URL:http://maps.google.com/mapfiles/kml/shapes/realstate.png --> <table 
+width="802" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td colspan="2" align="right">
+	<embed src="http://www.minagricultura.gov.co/swf/top_bann.swf" quality="high" bgcolor="#FFFFFF" width="802" height="90" name="table" align="top" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" id="table"/>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="right">
+<font color="#666633">Viviendas de interes social</font>
+</td>
+</tr>
+
+<tr>
+
+	<td>
+	<h2><font color="#009999">{{object.localidad|lower|capfirst}}<br/>
+	{{object.municipio|lower|capfirst}}, {{object.departamento|lower|capfirst}}</font> </h2>
+	<h3>Radicacion {{object.radicacion}}, Acta {{object.acta}}, Vigencia {{object.vigencia}}<br/></h3>
+	<p>
+		Proyecto tipo {{object.tipo}} con {{object.hogares}} hogares en estado de {{object.causal_demora|lower}}.
+	</p>
+	<div align="left">
+	<h1>${{object.valor_total|intcomma}}</h1>
+		<img border="0" src="http://chart.apis.google.com/chart?chs=320x150&chd=t:{{object.avance|porcentaje}}&cht=gom&chl={{object.avance|porcentaje}}+por+ciento" alt=""meter /> 
+	</div>
+	<div>
+	<h3>DESEMBOLSOS:</h3>
+	<table border = "0">
+		<tr>
+			<th>Desembolso</th>
+			<th>Fecha</th>
+			<th>Valor</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>{{object.primera_fecha}}</td>
+			<td>${{object.primer_desembolso|intcomma}}</td>
+		</tr>	
+		{% if object.segundo_desembolso %}
+		<tr>
+			<td>2</td>
+			<td>{{object.segunda_fecha}}</td>
+			<td>${{object.segundo_desembolso|intcomma}}</td>
+		</tr>
+		{% endif %}
+		{% if object.tecer_desembolso %}
+		<tr>
+			<td>3</td>
+			<td>{{object.tercera_fecha}}</td>
+			<td>{{object.tercer_desembolso|intcomma}}</td>
+		</tr>
+		{% endif %}
+	</table>
+	</div>
+	<np>Hasta la fecha se han desembolsado <a href="http://demo.puenti.com/tematico/proyecto/desembolsado.kmz">${{object.desembolsado|intcomma}}</a> {% if object.saldo %} y quedan <a href="http://demo.puenti.com/tematico/proyecto/saldo.kmz">${{object.saldo|intcomma}}</a>
+	pendientes por desembolsar. {% endif %}</p>
+	</td>
+
+</tr>
+	
+<tr>
+	<td colspan="2" width="99%" align="center">&nbsp;</td>
+</tr>
+
+<tr>
+	<td colspan="2" width="99%" align="center">
+	<p>
+	  <a href="http://demo.puenti.com/explorar/minagro/proyecto/objects/{{object.id}}">Ver mas</a> |
+	  <a href="http://demo.puenti.com/admin/minagro/proyecto/{{object.id}}">Editar</a>  |
+	  <a href="javascript:alert('hola')">Prueba</a>
+	</p>
+	<p>
+	<hr>	
+	  <h3>
+		<embed src="http://demo.puenti.com/media/links.swf" quality="high" bgcolor="#FFFFFF" width="650" height="260" name="viewer" align="top" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" id="operaciones"/>  
+	  </h3> 
+	</p>
+	</td>
+	</tr>
+</tr>
+<tr>
+<td colspan="2" width="1%" align="center" valign="top"><br />
+<font color="#999999">copyright 2008</font></td>
+</tr>
+</table>]]></description>
+<styleUrl>#stylemap_proyecto_{{object.id}}</styleUrl>
+  {% if object.geometry %}
+		<Point>
+			<coordinates>{{object.geometry.x}}, {{object.geometry.y}},0</coordinates>
+			<extrude>1</extrude>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</Point>
+  {{object.geometry|region_point}}
+  {% endif %}		
+	  <TimeSpan>
+		  <begin>{{object.vigencia}}</begin>
+	   </TimeSpan>
+	</Placemark> 
+   {% endfor %}
+   </Folder>
+   {% endfor %}
+   </Folder>
+   {% endfor %}
+   </Folder>
+</Document>
+</kml>

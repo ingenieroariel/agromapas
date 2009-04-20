@@ -1,0 +1,10 @@
+<NetworkLink id="select_{{params.model}}_{{params.field}}_{{parms.value}}">
+  <visibility>1</visibility>            
+ <open>1</open>
+<flyToView>1</flyToView>  
+<Link>
+<href>
+http://demo.puenti.com/select/{{params.model}}/{{params.field}}/{{params.value}}.kmz
+</href>
+</Link>
+</NetworkLink>

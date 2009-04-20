@@ -1,0 +1,70 @@
+<NetworkLinkControl> 
+  <Update> 
+    <targetHref>http://demo.puenti.com/proyectos.kmz</targetHref> 
+    {% load myfilters %}
+    {% for id, color in objects.items %}
+	<Change>
+		<Style targetId="style_{{model}}_{{id}}">
+			{% if polygon %}
+			<PolyStyle><color>70{{color|tobgr}}</color><colorMode>normal</colorMode><fill>1</fill><outline>1</outline></PolyStyle>
+			{% endif %}
+			{% if point %}
+			<IconStyle><color>ff{{color|tobgr}}</color><colorMode>normal</colorMode></IconStyle>
+			{% endif %}
+		</Style>
+	</Change>
+                        {% if point %}
+        <Change>
+		<Style targetId="style_{{model}}_{{id}}_hl">
+                        <IconStyle><color>ff{{color|tobgr}}</color><colorMode>normal</colorMode></IconStyle>
+                </Style>
+        </Change>
+                        {% endif %}
+    {% endfor %}
+<Delete>
+<Folder targetId="thematicLegend">
+</Folder>
+</Delete>
+<Create>
+	<Document targetId="root">
+		<Folder id="thematicLegend">
+			<name>Tematico de {{field}} de {{model}}</name>
+				<open>1</open>
+				<Snippet maxLines="0" >0</Snippet>
+				<description>
+				<![CDATA[
+				<table border="0" padding="0" >
+				<tr><td bgColor="#cccccc">Range</td><td bgColor="#cccccc"> </td></tr>
+				{% for item in colores %}
+				<tr><td>Hasta {{item.valor}}</td>	<td bgColor="#{{item.color}}"> </td></tr>
+				{% endfor %}
+				</table>
+				]]>
+			</description>
+		</Folder>
+	</Document>
+</Create>
+<Delete>
+<Folder targetId="top">
+</Folder>
+</Delete>
+<Create>
+	<Document targetId="root">
+        	<Folder id="top">
+			<name>Top 5 de {{field}} en {{model}}</name>
+			<open>1</open>
+			<Snippet maxLines="0">0</Snippet>
+				{% for name, point in top.items %}
+				<Placemark>
+				<name>{{name}}</name>
+				{% autoescape off %}				
+					{{point}}
+				{% endautoescape %}
+				</Placemark>
+				{% endfor %}
+		</Folder>
+	</Document>	
+</Create>
+
+</Update>
+</NetworkLinkControl> 

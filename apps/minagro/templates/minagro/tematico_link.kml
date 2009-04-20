@@ -1,0 +1,10 @@
+<NetworkLink id="tematico_{{params.model}}_{{params.field}}">
+  <visibility>1</visibility>            
+ <open>1</open>
+<flyToView>1</flyToView>  
+<Link>
+<href>
+http://demo.puenti.com/tematico/{{params.model}}/{{params.field}}.kmz
+</href>
+</Link>
+</NetworkLink>
