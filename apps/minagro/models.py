@@ -32,7 +32,7 @@ class Vivienda(models.Model):
     avance = models.DecimalField(max_digits=3, decimal_places=2)
     recursos = models.TextField()
     poblacion = models.CharField(max_length=11)
-    geom = models.PointField() 
+    geometry = models.PointField(db_column="geom") 
 
     objects = models.GeoManager()
 
