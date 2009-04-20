@@ -54,13 +54,10 @@
 			<name>{{departamento_dict.grouper.nombre|lower|capfirst}}</name>
 			{% with departamento_dict.list|first as first_object %}
 		<description><![CDATA[
-	<!-- BalloonStyle background color:ffffffff-->
-	<!-- Icon 
-	URL:http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png --> <table 
-width="802" border="0" cellpadding="0" cellspacing="0">
+
+<table width="802" border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td align="right">
-	<p><embed src="http://www.minagricultura.gov.co/swf/top_bann.swf" quality="high" bgcolor="#FFFFFF" width="802" height="90" name="table" align="top" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" id="table"/>       </p>
 </td>
 </tr>
 <tr>
@@ -92,10 +89,6 @@ width="802" border="0" cellpadding="0" cellspacing="0">
 		</tr>
 		<tr>
 		<td width="99%" align="center">
-			<p>	
-			<a href="http://demo.puenti.com/explorar/minagro/departamento/objects/{{first_object.departamento.nombre|urlencode}}">Ver mas</a> |
-			  <a href="http://demo.puenti.com/admin/minagro/departamento/{{first_object.departamento.nombre|urlencode}}">Editar</a>  
-			</p>	
 		</td>
 		</tr>
 	</table>
@@ -168,8 +161,10 @@ width="802" border="0" cellpadding="0" cellspacing="0">
 </tr>
  </table>]]>		{{first_object.departamento.cantidad}}
 				</description>
-				{% autoescape off %}
-				{{first_object.departamento|transparent}}
+                {% autoescape off %}
+                {% if first_object.departamento.geometry %}
+                {{first_object.departamento|transparent}}
+                {% endif %}
 				{% endautoescape %}
 				<Style id="style_departamento_{{first_object.departamento.id}}">
 				<PolyStyle>
@@ -181,8 +176,10 @@ width="802" border="0" cellpadding="0" cellspacing="0">
 				<BalloonStyle>
 					<text>$[description]</text>
 				</BalloonStyle>
-			 	</Style>
-				{{first_object.departamento.geometry|region_polygon}}
+            </Style>
+               {% if first_object.departamento.geometry %}
+                  {{first_object.departamento.geometry|region_polygon}}
+               {% endif %}
 			</Placemark>	
 			{% endwith %}
 			{% regroup departamento_dict.list by municipio as municipio_list %}	
