@@ -68,7 +68,7 @@ class Localidad(models.Model):
         verbose_name_plural='localidades'
 
 class ViviendaCode(models.Model):
-    radicacion = models.TextField()
+    radicacion = models.TextField(primary_key=True)
     localidad = models.TextField()
     mpio = models.TextField()
     dpto = models.TextField()
@@ -78,7 +78,7 @@ class ViviendaCode(models.Model):
 
 class Poblacion(models.Model):
     id = models.IntegerField(primary_key=True, db_column="ogc_fid")
-    geometry = models.PolygonField(db_column="wkb_geometry") 
+    geometry = models.GeometryField(db_column="wkb_geometry") 
     coddane = models.TextField()
     dpto = models.TextField()
     mcpio = models.TextField()
@@ -97,7 +97,7 @@ class Poblacion(models.Model):
 
 class Departamento(models.Model):
     id = models.IntegerField(primary_key=True, db_column='ogc_fid')
-    geometry = models.PolygonField(db_column='wkb_geometry') 
+    geometry = models.GeometryField(db_column='wkb_geometry') 
     dpto = models.TextField() 
     nombre = models.TextField(db_column='nom_dpto') 
     avg_hogares = models.DecimalField(max_digits=20, decimal_places=2)

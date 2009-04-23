@@ -4,6 +4,9 @@ from django.template import RequestContext
 from django.conf import settings
 from django.db.models import get_model
 from django.utils.safestring import mark_safe
+from django.contrib.gis.shortcuts import render_to_kml, render_to_kmz
+from django.shortcuts import render_to_response
+from minagro.models import Vivienda
 
 def index(request):
     return render_to_response('index.html', {"GMAPS_API_KEY": settings.GMAPS_API_KEY}, context_instance=RequestContext(request))
@@ -75,3 +78,13 @@ def select(request, model, field, value):
         
     return render_to_response('select.kml', {'objects':objects,'objects_visible':objects_visible, 'model':model, 'field':field, 'value':value} ,context_instance=RequestContext(request), )
 
+def object_list_kml(request, format='kml', template_name="minagro/proyectos.kml"):
+    viviendas= Vivienda.objects.all().exclude(geometry__exact=None).order_by('departamento', 'municipio').select_related()
+    if format == 'kml':
+        return render_to_kml(template_name, {'object_list':viviendas})
+    if format == 'kmz':
+        return render_to_kmz(template_name, {'object_list':viviendas})
+    if format == 'xml':
+        return render_to_response(template_name, {'object_list':viviendas}, mimetype="text/xml")
+    if format == 'txt':
+        return render_to_response(template_name, {'object_list':viviendas}, mimetype="text/plain")

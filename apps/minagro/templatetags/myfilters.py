@@ -37,7 +37,9 @@ def normalizar_valor(valor):
 
 @register.filter()
 def iconize(valor):
-    return float(valor/1000000000.0)
+    int_valor = int(valor)
+    ratio = int_valor/1000000000.0
+    return float(ratio)
 
 
 @register.filter()

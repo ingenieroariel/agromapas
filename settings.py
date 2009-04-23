@@ -41,7 +41,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/ingenieroariel/carto/media/'
+MEDIA_ROOT = '/home/agro/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -63,19 +63,19 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
-WEB_ROOT = '/home/ingenieroariel/carto/media/'
+WEB_ROOT = '/home/agro/static/'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
-#    'staticgenerator.middleware.StaticGeneratorMiddleware',
+    'staticgenerator.middleware.StaticGeneratorMiddleware',
 )
 
 STATIC_GENERATOR_URLS = (
 #    r'^/$',
-#    r'^/(proyectos.kmz)',
+    r'^/(proyectos.kmz)',
 )
 # Valid for demo.puenti.com
 GMAPS_API_KEY="ABQIAAAAc6uYIZMXcGKnQLkkUR-LfRSivSAHp7OkUqTdT2kdzGRzAdOc3RQIJHtRrL6YA5OQKFrcS1StaBkITg"
@@ -86,7 +86,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/ingenieroariel/carto/projects/demo/templates',
+    '/home/agro/src/agromapas/templates',
 )
 
 INSTALLED_APPS = (
@@ -97,10 +97,33 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.databrowse',
     'django.contrib.humanize',
+    'batchimport',
     'minagro',
     'registration',
     'django_extensions',
+    'compress',
     )
+
+COMPRESS=True
+COMPRESS_VERSION=True
+
+COMPRESS_CSS = {
+    'all': {
+        'source_filenames': ('lib/ext-2.2/resources/css/ext-all.css', 'css/Ext.ux.GEarthPanel.css', 'css/earthatlas.css', 'lib/ext-2.2/resources/css/xtheme-green.css'),
+        'output_filename': 'css/screen.r?.css',
+        'extra_context': {
+            'media': 'screen,projection',
+        },
+    },    
+}
+COMPRESS_JS = {
+    'all': {
+        'source_filenames': ('lib/ext-2.2/adapter/ext/ext-base.js', 'lib/ext-2.2/ext-all.js', 'js/Ext.ux.GEarthPanel.js','js/earthatlas.js'),
+        'output_filename': 'js/all_compressed.r?.js',
+    }
+}
+
+
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
